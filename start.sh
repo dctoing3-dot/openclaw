@@ -59,11 +59,22 @@ if [ ! -z "$CODESPACE_NAME" ]; then
     echo ""
 fi
 
-# Start OpenClaw
+# Export environment variables untuk OpenClaw
+export AI_PROVIDER="openrouter"
+export OPENROUTER_MODEL="openrouter/free"
+export DISCORD_ENABLED="true"
+export GATEWAY_HOST="0.0.0.0"
+export GATEWAY_PORT="18789"
+
+# Start OpenClaw tanpa --config flag
 echo -e "${YELLOW}Starting OpenClaw Gateway...${NC}"
 echo ""
 
-npx openclaw gateway start \
-    --config ~/.openclaw/config.json \
-    --port 18789 \
-    --host 0.0.0.0
+# Method 1: Coba dengan onboard dulu jika belum pernah
+if [ ! -d ~/.openclaw ]; then
+    echo -e "${YELLOW}Running first-time setup...${NC}"
+    npx openclaw onboard --skip-for-now
+fi
+
+# Method 2: Start gateway langsung
+npx openclaw gateway start
