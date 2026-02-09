@@ -1,18 +1,12 @@
 {
-  "name": "OpenClaw Development",
+  "name": "OpenClaw Discord + OpenRouter",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
-  "features": {
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
-  },
-  "postCreateCommand": "npm install -g pnpm && pnpm install",
+  "postCreateCommand": "bash setup.sh",
   "forwardPorts": [18789],
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
-      ]
+  "portsAttributes": {
+    "18789": {
+      "label": "OpenClaw Gateway",
+      "onAutoForward": "notify"
     }
   }
 }
